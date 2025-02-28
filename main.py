@@ -29,6 +29,7 @@ def main():
         updatable.update(dt)
         screen.fill(color='black')
         for draw in drawable:
+            print(draw)
             draw.draw(screen)   
         
         pygame.display.flip()
