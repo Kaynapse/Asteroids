@@ -6,6 +6,8 @@ from circleshape import *
 from asteroidfield import *
 import sys
 from shot import *
+import background
+
 
 def main():
     pygame.init
@@ -28,6 +30,7 @@ def main():
     asteroid_field = AsteroidField()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    background_ = background.Background("assets/heic1304c.jpg", [0, 0])
     
 
     #game loop
@@ -49,6 +52,7 @@ def main():
                     asteroid.split()
 
         screen.fill(color='black')
+        screen.blit(background_.image, background_.rect)
         for draw in drawable:
             
             draw.draw(screen)   
