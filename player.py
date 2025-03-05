@@ -5,8 +5,12 @@ import pygame
 class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
+        pygame.sprite.Sprite.__init__(self)
         self.rotation = 0
         self.timer = 0
+
+        # self.ship_sprite = pygame.image.load("assets/ship_png.jpg")
+
     # in the player class
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)

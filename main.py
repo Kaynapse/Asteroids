@@ -7,12 +7,15 @@ from asteroidfield import *
 import sys
 from shot import *
 import background
+from playerscore import *
 
 
 def main():
-    pygame.init
+    pygame.init()
+    
     time_clock = pygame.time.Clock()
     dt = 0
+    
 
     # groups
     updatable = pygame.sprite.Group()
@@ -25,12 +28,14 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
+    PlayerScore.containers = (updatable, drawable)
 
     # create objects
     asteroid_field = AsteroidField()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     background_ = background.Background("assets/heic1304c.jpg", [0, 0])
+    player_score = PlayerScore(15, 15)
     
 
     #game loop
@@ -38,7 +43,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        
+            
+        player_score.display_score(screen)
+
         updatable.update(dt)
         for asteroid in asteroids:
             if player.check_collision(asteroid):
@@ -53,6 +60,14 @@ def main():
 
         screen.fill(color='black')
         screen.blit(background_.image, background_.rect)
+
+        # --------------------------creating a player sprite for later use ---------------------------------
+
+        # screen.blit(player.ship_sprite, player.position)
+
+        # ---------------------------------------------------------------------------------------------------
+
+
         for draw in drawable:
             
             draw.draw(screen)   
