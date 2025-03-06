@@ -28,7 +28,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
-    PlayerScore.containers = (updatable, drawable)
+    
 
     # create objects
     asteroid_field = AsteroidField()
@@ -44,12 +44,16 @@ def main():
             if event.type == pygame.QUIT:
                 return
             
-        player_score.display_score(screen)
+       
+        
 
         updatable.update(dt)
+        
         for asteroid in asteroids:
             if player.check_collision(asteroid):
                 print('Game Over')
+                asteroid = Asteroid(asteroid.position.x, asteroid.position.y, asteroid.radius, (255, 255, 0))
+                pygame.time.wait(2000)
                 sys.exit()
             
             for shot in shots:
@@ -59,11 +63,12 @@ def main():
                     asteroid.split()
 
         screen.fill(color='black')
-        screen.blit(background_.image, background_.rect)
+       # screen.blit(background_.image, background_.rect)
+        player_score.display_score(screen)
 
         # --------------------------creating a player sprite for later use ---------------------------------
 
-        # screen.blit(player.ship_sprite, player.position)
+        #screen.blit(player.ship_sprite, player.position)
 
         # ---------------------------------------------------------------------------------------------------
 
