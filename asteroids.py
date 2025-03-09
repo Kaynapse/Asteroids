@@ -18,7 +18,7 @@ class Asteroid(CircleShape):
         self.position += self.velocity * dt
 
     def split(self):
-        
+
         # adding points based on asteroid size
         if self.radius == ASTEROID_MAX_RADIUS:
             playerscore.PlayerScore.score_sum += 5
@@ -26,16 +26,27 @@ class Asteroid(CircleShape):
             playerscore.PlayerScore.score_sum += 15
         if self.radius == ASTEROID_MIN_RADIUS:
             playerscore.PlayerScore.score_sum += 30
+
         
-        random_angle = random.uniform(20, 50)
-        random_velocity1 = self.velocity.rotate(random_angle)
-        random_velocity2 = self.velocity.rotate(-random_angle)
-        new_asteroid_radius = self.radius - ASTEROID_MIN_RADIUS
-        new_smaller_asteroid1 = Asteroid(self.position.x, self.position.y, new_asteroid_radius)
-        new_smaller_asteroid2 = Asteroid(self.position.x, self.position.y, new_asteroid_radius)
-        new_smaller_asteroid1.velocity = random_velocity1 * 1.2
-        new_smaller_asteroid2.velocity = random_velocity2 * 1.2
-        self.kill()
-        if self.radius < ASTEROID_MIN_RADIUS:
+        if self.radius == ASTEROID_MIN_RADIUS:
             self.kill()
             return
+        
+        if self.radius >= ASTEROID_MIN_RADIUS:
+            self.kill()
+            random_angle = random.uniform(20, 50)
+            
+            new_asteroid_radius = self.radius - ASTEROID_MIN_RADIUS
+            new_smaller_asteroid1 = Asteroid(self.position.x, self.position.y, new_asteroid_radius)
+            new_smaller_asteroid2 = Asteroid(self.position.x, self.position.y, new_asteroid_radius)
+            new_smaller_asteroid1.velocity = self.velocity.rotate(random_angle) * 1.2
+            new_smaller_asteroid2.velocity = self.velocity.rotate(-random_angle) * 1.2
+
+
+        
+        
+
+        
+        
+        
+        

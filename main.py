@@ -52,8 +52,9 @@ def main():
         for asteroid in asteroids:
             if player.check_collision(asteroid):
                 print('Game Over')
-                asteroid = Asteroid(asteroid.position.x, asteroid.position.y, asteroid.radius, (255, 255, 0))
-                pygame.time.wait(2000)
+                print(f'asteroid position: {asteroid.position.x, asteroid.position.y, asteroid.radius}')
+                print(f'player position: {player.position.x, player.position.y}')
+                pygame.time.wait(10000)
                 sys.exit()
             
             for shot in shots:
@@ -63,7 +64,7 @@ def main():
                     asteroid.split()
 
         screen.fill(color='black')
-       # screen.blit(background_.image, background_.rect)
+        screen.blit(background_.image, background_.rect)
         player_score.display_score(screen)
 
         # --------------------------creating a player sprite for later use ---------------------------------
