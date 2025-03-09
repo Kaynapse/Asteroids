@@ -10,6 +10,7 @@ import background
 from playerscore import *
 from button import Button
 
+
 pygame.font.init()
 background_ = background.Background("assets/heic1304c.jpg", [0, 0])
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -58,8 +59,8 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     player_score.score_sum = 0
-                   # main_menu()
-                   # game_on = False
+                    main_menu()
+                    game_on = False
                 
                 
             
@@ -78,6 +79,7 @@ def main():
 
                 if asteroid.check_collision(shot):
                     shot.kill()
+                    player_score.add_player_score(asteroid.radius)
                     asteroid.split()
 
         screen.fill(color='black')
@@ -97,8 +99,6 @@ def main():
         
         pygame.display.flip()
         dt = time_clock.tick(60) / 1000
-#if __name__ == "__main__":
-#    main()
 
 def main_menu(): # Main Menu screen
     pygame.display.set_caption("Menu")
@@ -137,10 +137,16 @@ def main_menu(): # Main Menu screen
                     pygame.quit()
                     sys.exit()
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE: # Sends player to confirm quitting game screen
+                    quit_option()
+                    break
+                    
+
         pygame.display.update()
 
 #----------------------------------- pause screen ---------------------------
-def paused():
+def paused(): # will implement later
     pause = True
 
     largeText = pygame.font.Font("assets/FiraCode-Regular.ttf",32)
@@ -158,8 +164,20 @@ def paused():
                 
         #gameDisplay.fill(white)
 
-def resume():
+def resume(): # will implement later
 
     pass
+
+def quit_option():
+    
+    pygame.display.set_caption("Quit Menu")
+
+    while True:
+        screen.fill(color='black')
+        
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        MENU_TEXT = get_font(100).render("QUIT GAME?", True, (255, 255, 255))
+        MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
 main_menu()

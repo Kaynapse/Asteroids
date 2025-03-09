@@ -2,7 +2,7 @@ from circleshape import *
 from constants import *
 import pygame
 import random
-import playerscore
+from playerscore import *
 
 
 class Asteroid(CircleShape):
@@ -19,22 +19,15 @@ class Asteroid(CircleShape):
 
     def split(self):
 
-        # adding points based on asteroid size
-        if self.radius == ASTEROID_MAX_RADIUS:
-            playerscore.PlayerScore.score_sum += 5
-        if self.radius < ASTEROID_MAX_RADIUS and self.radius > ASTEROID_MIN_RADIUS:
-            playerscore.PlayerScore.score_sum += 15
-        if self.radius == ASTEROID_MIN_RADIUS:
-            playerscore.PlayerScore.score_sum += 30
-
         
-        if self.radius == ASTEROID_MIN_RADIUS:
+        if self.radius == ASTEROID_MIN_RADIUS: # Handles minimum asteroid radius
             self.kill()
             return
         
-        if self.radius >= ASTEROID_MIN_RADIUS:
+        if self.radius >= ASTEROID_MIN_RADIUS: # Create 2 new asteroids with random velocities and angles
             self.kill()
             random_angle = random.uniform(20, 50)
+            
             
             new_asteroid_radius = self.radius - ASTEROID_MIN_RADIUS
             new_smaller_asteroid1 = Asteroid(self.position.x, self.position.y, new_asteroid_radius)
